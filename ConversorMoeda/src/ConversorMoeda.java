@@ -25,12 +25,12 @@ public class ConversorMoeda {
     }
     
     public static double converterMoeda(double valor, String moedaOrigem, String moedaConversao) {
-        double taxaDolarParaReal = 5.35; // Exemplo: 1 dólar = 5.35 reais
+        double valordoReal = 5.35; // Exemplo: 1 dólar = 5.35 reais
         
         if (moedaOrigem.equalsIgnoreCase("dólar") && moedaConversao.equalsIgnoreCase("real")) {
-            return valor * taxaDolarParaReal;
+            return valor * valordoReal;
         } else if (moedaOrigem.equalsIgnoreCase("real") && moedaConversao.equalsIgnoreCase("dólar")) {
-            return valor / taxaDolarParaReal;
+            return valor / valordoReal;
         } else {
             System.out.println("Conversão não suportada.");
             return 0.0;
