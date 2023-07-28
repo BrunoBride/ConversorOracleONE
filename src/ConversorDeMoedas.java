@@ -6,12 +6,12 @@ public class ConversorDeMoedas {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 
-		// Taxas de câmbio
-		double taxaDolar = 5.50;
-		double taxaEuro = 6.50;
-		double taxaLibraEsterlina = 7.80;
-		double taxaPesoArgentino = 0.06;
-		double taxaPesoChileno = 0.007;
+		// Taxas de câmbio em 28 julho 2023 (07 28 23 - mmddyy)
+		double taxaDolar = 4.73;
+		double taxaEuro = 5.27;
+		double taxaLibraEsterlina = 6.14;
+		double taxaPesoArgentino = 0.01737;
+		double taxaPesoChileno = 0.005747;
 
 		// Pergunta ao usuário qual moeda ele possui e o valor financeiro
 		System.out.println("Qual moeda você possui?");
