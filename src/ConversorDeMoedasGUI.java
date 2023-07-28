@@ -7,17 +7,18 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 public class ConversorDeMoedasGUI {
 
-	private JFrame frmConversorDe;
-	private JTextField textFieldAmount;
-	private JComboBox<String> comboBoxFrom;
-	private JComboBox<String> comboBoxTo;
-	private JLabel lblResult;
+	private JFrame frmConversorMoeda;
+	private JTextField txtFldValorInformado;
+	private JComboBox<String> cbbMoedaDe;
+	private JComboBox<String> cbbMoedaPara;
+	private JLabel lblResultado;
 
 	// Taxas de conversão das moedas em relação ao Real (BRL)
-	private final double[] exchangeRates = { 1.0, 4.73, 5.27, 6.14, 0.01737, 0.005747 };
+	private final double[] matrizMoedas = { 1.0, 4.73, 5.27, 6.14, 0.01737, 0.005747 };
 	             //Sequencia das taxas -     BRL,  USD,  EUR,  GBP,   ARS  ,    CLP
 		         //Real, Dólar, Euro, Libras Esterlinas, Peso Argentino, Peso Chileno
 	
@@ -26,7 +27,7 @@ public class ConversorDeMoedasGUI {
 			public void run() {
 				try {
 					ConversorDeMoedasGUI window = new ConversorDeMoedasGUI();
-					window.frmConversorDe.setVisible(true);
+					window.frmConversorMoeda.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,88 +40,95 @@ public class ConversorDeMoedasGUI {
 	}
 
 	private void initialize() {
-		frmConversorDe = new JFrame();
-		frmConversorDe.setTitle(":: Conversor de Moedas ::");
-		frmConversorDe.setBounds(100, 100, 400, 300);
-		frmConversorDe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmConversorDe.getContentPane().setLayout(null);
+		frmConversorMoeda = new JFrame();
+		frmConversorMoeda.setFont(new Font("Dialog", Font.PLAIN, 11));
+		frmConversorMoeda.setTitle(":: Conversor de Moedas ::");
+		frmConversorMoeda.setBounds(100, 100, 330, 300);
+		frmConversorMoeda.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmConversorMoeda.getContentPane().setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 384, 261);
-		frmConversorDe.getContentPane().add(panel);
-		panel.setLayout(null);
+		JPanel painelConversorMoeda = new JPanel();
+		painelConversorMoeda.setBounds(0, 0, 314, 261);
+		frmConversorMoeda.getContentPane().add(painelConversorMoeda);
+		painelConversorMoeda.setLayout(null);
 
-		JLabel lblAmount = new JLabel("Valor:");
-		lblAmount.setBounds(30, 30, 70, 20);
-		panel.add(lblAmount);
+		JLabel lblValor = new JLabel("Valor:");
+		lblValor.setBounds(30, 30, 70, 20);
+		painelConversorMoeda.add(lblValor);
 
-		textFieldAmount = new JTextField();
-		textFieldAmount.setText("1");
-		textFieldAmount.setBounds(100, 30, 120, 20);
-		panel.add(textFieldAmount);
-		textFieldAmount.setColumns(10);
+		txtFldValorInformado = new JTextField();
+		txtFldValorInformado.setText("1");
+		txtFldValorInformado.setBounds(100, 30, 120, 20);
+		painelConversorMoeda.add(txtFldValorInformado);
+		txtFldValorInformado.setColumns(10);
 
-		JLabel lblFrom = new JLabel("De:");
-		lblFrom.setBounds(30, 70, 70, 20);
-		panel.add(lblFrom);
+		JLabel lblDe = new JLabel("De:");
+		lblDe.setBounds(30, 70, 70, 20);
+		painelConversorMoeda.add(lblDe);
 
-		comboBoxFrom = new JComboBox<>();
-		comboBoxFrom.setBounds(100, 70, 120, 20);
-		comboBoxFrom.addItem("Reais");
-		comboBoxFrom.addItem("Dólar");
-		comboBoxFrom.addItem("Euro");
-		comboBoxFrom.addItem("Libras Esterlinas");
-		comboBoxFrom.addItem("Peso Argentino");
-		comboBoxFrom.addItem("Peso Chileno");
-		panel.add(comboBoxFrom);
+		cbbMoedaDe = new JComboBox<>();
+		cbbMoedaDe.setBounds(100, 70, 120, 20);
+		cbbMoedaDe.addItem("Reais");
+		cbbMoedaDe.addItem("Dólar");
+		cbbMoedaDe.addItem("Euro");
+		cbbMoedaDe.addItem("Libras Esterlinas");
+		cbbMoedaDe.addItem("Peso Argentino");
+		cbbMoedaDe.addItem("Peso Chileno");
+		painelConversorMoeda.add(cbbMoedaDe);
 
-		JLabel lblTo = new JLabel("Para:");
-		lblTo.setBounds(30, 110, 70, 20);
-		panel.add(lblTo);
+		JLabel lblPara = new JLabel("Para:");
+		lblPara.setBounds(30, 110, 70, 20);
+		painelConversorMoeda.add(lblPara);
 
-		comboBoxTo = new JComboBox<>();
-		comboBoxTo.setBounds(100, 110, 120, 20);
-		comboBoxTo.addItem("Reais");
-		comboBoxTo.addItem("Dólar");
-		comboBoxTo.addItem("Euro");
-		comboBoxTo.addItem("Libras Esterlinas");
-		comboBoxTo.addItem("Peso Argentino");
-		comboBoxTo.addItem("Peso Chileno");
-		panel.add(comboBoxTo);
+		cbbMoedaPara = new JComboBox<>();
+		cbbMoedaPara.setBounds(100, 110, 120, 20);
+		cbbMoedaPara.addItem("Reais");
+		cbbMoedaPara.addItem("Dólar");
+		cbbMoedaPara.addItem("Euro");
+		cbbMoedaPara.addItem("Libras Esterlinas");
+		cbbMoedaPara.addItem("Peso Argentino");
+		cbbMoedaPara.addItem("Peso Chileno");
+		painelConversorMoeda.add(cbbMoedaPara);
 
-		JButton btnConvert = new JButton("Converter");
-		btnConvert.setBounds(30, 150, 190, 30);
-		panel.add(btnConvert);
+		JButton btnConverter = new JButton("Converter");
+		btnConverter.setBounds(30, 150, 190, 30);
+		painelConversorMoeda.add(btnConverter);
 
-		lblResult = new JLabel("");
-		lblResult.setBounds(30, 200, 300, 20);
-		panel.add(lblResult);
+		lblResultado = new JLabel("");
+		lblResultado.setBounds(10, 192, 300, 20);
+		painelConversorMoeda.add(lblResultado);
+		
+		JLabel lblMsgDeusFiel = new JLabel("Deus \u00E9 Fiel !");
+		lblMsgDeusFiel.setFont(new Font("Tahoma", Font.ITALIC, 10));
+		lblMsgDeusFiel.setLabelFor(frmConversorMoeda);
+		lblMsgDeusFiel.setBounds(243, 236, 61, 14);
+		painelConversorMoeda.add(lblMsgDeusFiel);
 
-		btnConvert.addActionListener(new ActionListener() {
+		btnConverter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				convertCurrency();
+				converterMoeda();
 			}
 		});
 	}
 
-	private void convertCurrency() {
-		String fromCurrency = comboBoxFrom.getSelectedItem().toString();
-		String toCurrency = comboBoxTo.getSelectedItem().toString();
+	private void converterMoeda() {
+		String moedaDe = cbbMoedaDe.getSelectedItem().toString();
+		String moedaPara = cbbMoedaPara.getSelectedItem().toString();
 
-		double amount = 0.0;
+		double resultado = 0.0;
 		try {
-			amount = Double.parseDouble(textFieldAmount.getText());
+			resultado = Double.parseDouble(txtFldValorInformado.getText());
 		} catch (NumberFormatException ex) {
-			lblResult.setText("Valor inválido.");
+			lblResultado.setText("Valor inválido.");
 			return;
 		}
 
-		int fromIndex = getCurrencyIndex(fromCurrency);
-		int toIndex = getCurrencyIndex(toCurrency);
+		int opcaoMoedaDe = getCurrencyIndex(moedaDe);
+		int opcaoMoedaPara = getCurrencyIndex(moedaPara);
 
-		double convertedAmount = amount * exchangeRates[toIndex] / exchangeRates[fromIndex];
-		lblResult.setText(
-				String.format("%.2f %s equivalem a %.2f %s", amount, fromCurrency, convertedAmount, toCurrency));
+		double converterValor = resultado * matrizMoedas[opcaoMoedaPara] / matrizMoedas[opcaoMoedaDe];
+		lblResultado.setText(
+				String.format("%.2f %s equivalem\n a %.2f %s", resultado, moedaDe, converterValor, moedaPara));
 	}
 
 	private int getCurrencyIndex(String currency) {
