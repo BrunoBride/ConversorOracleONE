@@ -8,6 +8,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
+import java.awt.Color;
 
 public class ConversorDeMoedasGUI {
 
@@ -15,10 +18,12 @@ public class ConversorDeMoedasGUI {
 	private JTextField txtFldValorInformado;
 	private JComboBox<String> cbbMoedaDe;
 	private JComboBox<String> cbbMoedaPara;
-	private JLabel lblResultado;
+	private JTextArea txArea;
 
-	// Taxas de conversão das moedas em relação ao Real (BRL)
+	// Taxas de conversão das moedas em relação ao Real (BRL) câmbio em 28 julho 2023 (07 28 23 - mmddyy)
 	private final double[] matrizMoedas = { 1.0, 4.73, 5.27, 6.14, 0.01737, 0.005747 };
+	private JTextField textField;
+	private JTextArea txtArea;
 	             //Sequencia das taxas -     BRL,  USD,  EUR,  GBP,   ARS  ,    CLP
 		         //Real, Dólar, Euro, Libras Esterlinas, Peso Argentino, Peso Chileno
 	
@@ -43,12 +48,13 @@ public class ConversorDeMoedasGUI {
 		frmConversorMoeda = new JFrame();
 		frmConversorMoeda.setFont(new Font("Dialog", Font.PLAIN, 11));
 		frmConversorMoeda.setTitle(":: Conversor de Moedas ::");
-		frmConversorMoeda.setBounds(100, 100, 330, 300);
+		frmConversorMoeda.setBounds(100, 100, 332, 354);
 		frmConversorMoeda.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmConversorMoeda.getContentPane().setLayout(null);
+		frmConversorMoeda.setLocationRelativeTo(null);
 
 		JPanel painelConversorMoeda = new JPanel();
-		painelConversorMoeda.setBounds(0, 0, 314, 261);
+		painelConversorMoeda.setBounds(0, 0, 314, 315);
 		frmConversorMoeda.getContentPane().add(painelConversorMoeda);
 		painelConversorMoeda.setLayout(null);
 
@@ -93,16 +99,20 @@ public class ConversorDeMoedasGUI {
 		JButton btnConverter = new JButton("Converter");
 		btnConverter.setBounds(30, 150, 190, 30);
 		painelConversorMoeda.add(btnConverter);
-
-		lblResultado = new JLabel("");
-		lblResultado.setBounds(10, 192, 300, 20);
-		painelConversorMoeda.add(lblResultado);
 		
 		JLabel lblMsgDeusFiel = new JLabel("Deus \u00E9 Fiel !");
 		lblMsgDeusFiel.setFont(new Font("Tahoma", Font.ITALIC, 10));
 		lblMsgDeusFiel.setLabelFor(frmConversorMoeda);
-		lblMsgDeusFiel.setBounds(243, 236, 61, 14);
+		lblMsgDeusFiel.setBounds(243, 290, 61, 14);
 		painelConversorMoeda.add(lblMsgDeusFiel);
+		
+		txtArea = new JTextArea();
+		txtArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtArea.setBackground(new Color(240, 240, 240));
+		txtArea.setForeground(new Color(0, 0, 0));
+		txtArea.setBounds(24, 191, 214, 113);
+		painelConversorMoeda.add(txtArea);
+		txtArea.setLineWrap(true);
 
 		btnConverter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -119,7 +129,7 @@ public class ConversorDeMoedasGUI {
 		try {
 			resultado = Double.parseDouble(txtFldValorInformado.getText());
 		} catch (NumberFormatException ex) {
-			lblResultado.setText("Valor inválido.");
+			txtArea.setText("Valor inválido.");
 			return;
 		}
 
@@ -127,9 +137,10 @@ public class ConversorDeMoedasGUI {
 		int opcaoMoedaPara = getCurrencyIndex(moedaPara);
 
 		double converterValor = resultado * matrizMoedas[opcaoMoedaPara] / matrizMoedas[opcaoMoedaDe];
-		lblResultado.setText(
-				String.format("%.2f %s equivalem\n a %.2f %s", resultado, moedaDe, converterValor, moedaPara));
+		txtArea.setText(String.format("%.2f %s \n equivalem a \n %.2f %s", resultado, moedaDe, converterValor, moedaPara));
 	}
+	
+	
 
 	private int getCurrencyIndex(String currency) {
 		switch (currency) {
